@@ -2,15 +2,21 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    PlayerStats stats;
+    PlayerInputHandler inputHandler;
+    PlayerActions actions;
+
+    float MoveForce;
+
+    void Awake()
     {
-        
+        stats = GetComponent<PlayerStats>();
+        inputHandler = GetComponent<PlayerInputHandler>();
+        actions = GetComponent<PlayerActions>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        actions.Move(inputHandler.MoveDir);
     }
 }
