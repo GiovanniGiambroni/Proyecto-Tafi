@@ -17,6 +17,6 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        actions.Move(inputHandler.MoveDir);
+        actions.Move4(inputHandler.MoveDir);
     }
 }
