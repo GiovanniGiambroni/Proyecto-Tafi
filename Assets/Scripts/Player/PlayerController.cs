@@ -2,21 +2,28 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    PlayerStats stats;
-    PlayerInputHandler inputHandler;
-    PlayerActions actions;
+    PlayerContext context;
 
-    float MoveForce;
+    [SerializeField] PlayerStats stats = new();
+    PlayerResources resources;
+    Rigidbody2D body;
+    PlayerInputHandler inputHandler;
+    PlayerState state = PlayerState.None;
+
+    PlayerActions actions;
 
     void Awake()
     {
-        stats = GetComponent<PlayerStats>();
         inputHandler = GetComponent<PlayerInputHandler>();
-        actions = GetComponent<PlayerActions>();
+        body = GetComponent<Rigidbody2D>();
+
+        context = new(body, stats, inputHandler, resources, state);
+        actions = new(context);
+        resources = new(context);
     }
 
     void FixedUpdate()
     {
-        actions.Move4(inputHandler.MoveDir);
+        actions.Move(inputHandler.MoveDir);
     }
 }

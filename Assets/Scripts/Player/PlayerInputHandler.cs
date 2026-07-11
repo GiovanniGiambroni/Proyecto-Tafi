@@ -18,26 +18,11 @@ public class PlayerInputHandler : MonoBehaviour
 
     void Start()
     {
-        SubscribeEvents();
+
     }
 
     void Update()
     {
         MoveDir = moveAction.ReadValue<Vector2>();
-    }
-
-    void SubscribeEvents()
-    {
-
-    }
-
-    void UnsubscribeEvents()
-    {
-
-    }
-
-    private void OnDestroy()
-    {
-        
     }
 }
