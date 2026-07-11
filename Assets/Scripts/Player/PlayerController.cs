@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,9 +10,11 @@ public class PlayerController : MonoBehaviour
     PlayerResources resources;
     Rigidbody2D body;
     PlayerInputHandler inputHandler;
+    PlayerActions actions;
     PlayerState state = PlayerState.None;
 
-    PlayerActions actions;
+    PlayerState NegateMovementStates = PlayerState.Stunned | PlayerState.Dashing;
+    bool CanMoveOrDash => !context.HasAnyState(NegateMovementStates);
 
     void Awake()
     {
@@ -24,6 +28,31 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        actions.Move(inputHandler.MoveDir);
+        if (CanMoveOrDash) actions.Move(inputHandler.MoveDir);
+    }
+
+    void OnEnable()
+    {
+        SubscribeActions();
+    }
+
+    void OnDisable()
+    {
+        UnsubscribeActions();
+    }
+
+    void SubscribeActions()
+    {
+        inputHandler.DashEvent += Dash;
+    }
+
+    void UnsubscribeActions()
+    {
+        inputHandler.DashEvent -= Dash;
+    }
+
+    void Dash()
+    {
+        if (CanMoveOrDash) StartCoroutine(actions.Dash(inputHandler.MoveDir));
     }
 }

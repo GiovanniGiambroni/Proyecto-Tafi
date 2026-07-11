@@ -23,4 +23,19 @@ public class PlayerContext
         Resources = resources;
         State = state;
     }
+
+    public void AddState(PlayerState s)
+    {
+        State |= s;
+    }
+
+    public void RemoveState(PlayerState s)
+    {
+        State &= ~s;
+    }
+
+    public bool HasAnyState(PlayerState flagsToCheck)
+    {
+        return (State & flagsToCheck) != 0;
+    }
 }
