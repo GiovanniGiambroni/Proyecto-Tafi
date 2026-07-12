@@ -53,7 +53,7 @@ public class PlayerActions
             while (elapsed < stats.DashDuration)
             {
                 rb.position = Vector2.MoveTowards(rb.position, rb.position + dashDir * stats.DashDistance, dashSpeed * Time.deltaTime);
-
+                
                 elapsed += Time.deltaTime;
                 yield return null;
             }
