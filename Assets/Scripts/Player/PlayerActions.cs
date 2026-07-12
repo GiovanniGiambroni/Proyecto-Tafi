@@ -13,7 +13,7 @@ public class PlayerActions
     private PlayerStats stats;
 
     private Vector2 previousDir;
-
+    private Vector2 previousInputDir;
     public PlayerActions(PlayerContext context)
     {
         this.context = context;
@@ -33,6 +33,7 @@ public class PlayerActions
         rb.linearVelocity = Vector2.MoveTowards(rb.linearVelocity, targetVel, rate * Time.deltaTime);
 
         previousDir = targetVel.normalized;
+        if (dir != Vector2.zero) previousInputDir = dir.normalized;
     }
 
     public IEnumerator Dash(Vector2 dir)
@@ -43,7 +44,7 @@ public class PlayerActions
         {
             Vector2 dashDir = dir != Vector2.zero
             ? dir.normalized
-            : previousDir;
+            : previousInputDir;
             float dashSpeed = stats.DashDistance / stats.DashDuration;
 
             // Reseteo velocidad para evitar que se desvíe de la trayectoria del dash

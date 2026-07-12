@@ -31,9 +31,15 @@ public class PlayerController : MonoBehaviour
         resources = new(context);
     }
 
+    void Start()
+    {
+        resources.Initialize();
+    }
+
     void FixedUpdate()
     {
         if (CanMove) actions.Move(inputHandler.MoveDir);
+        resources.Update(false, true);
     }
 
     void OnEnable()
@@ -58,6 +64,8 @@ public class PlayerController : MonoBehaviour
 
     void Dash()
     {
-        if (CanMove) StartCoroutine(actions.Dash(inputHandler.MoveDir));
+        if (!CanMove) return;
+        if (resources.TryConsumeStamina(stats.DashStaminaCost))
+            StartCoroutine(actions.Dash(inputHandler.MoveDir));
     }
 }
