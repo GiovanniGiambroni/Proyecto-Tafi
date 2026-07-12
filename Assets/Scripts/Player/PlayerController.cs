@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Gestiona el comportamiento del jugador. Se encarga de validar acciones y otros procesos relacionados.
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
     PlayerContext context;
@@ -10,25 +13,27 @@ public class PlayerController : MonoBehaviour
     PlayerResources resources;
     Rigidbody2D body;
     PlayerInputHandler inputHandler;
+    PlayerUI ui;
     PlayerActions actions;
     PlayerState state = PlayerState.None;
 
     PlayerState NegateMovementStates = PlayerState.Stunned | PlayerState.Dashing;
-    bool CanMoveOrDash => !context.HasAnyState(NegateMovementStates);
+    bool CanMove => !context.HasAnyState(NegateMovementStates);
 
     void Awake()
     {
         inputHandler = GetComponent<PlayerInputHandler>();
         body = GetComponent<Rigidbody2D>();
+        ui = GetComponent<PlayerUI>();
 
-        context = new(body, stats, inputHandler, resources, state);
+        context = new(body, stats, inputHandler, resources, ui, state);
         actions = new(context);
         resources = new(context);
     }
 
     void FixedUpdate()
     {
-        if (CanMoveOrDash) actions.Move(inputHandler.MoveDir);
+        if (CanMove) actions.Move(inputHandler.MoveDir);
     }
 
     void OnEnable()
@@ -53,6 +58,6 @@ public class PlayerController : MonoBehaviour
 
     void Dash()
     {
-        if (CanMoveOrDash) StartCoroutine(actions.Dash(inputHandler.MoveDir));
+        if (CanMove) StartCoroutine(actions.Dash(inputHandler.MoveDir));
     }
 }

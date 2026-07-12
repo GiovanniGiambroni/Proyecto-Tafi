@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Maneja la entrada del jugador. Esta clase se encarga de leer las entradas del jugador y exponerlas a otras clases a través de eventos y propiedades.
+/// </summary>
 public class PlayerInputHandler : MonoBehaviour
 {
 

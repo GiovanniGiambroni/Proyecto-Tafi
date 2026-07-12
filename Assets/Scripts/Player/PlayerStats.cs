@@ -1,5 +1,8 @@
 using System;
 
+/// <summary>
+/// Representa las estadísticas del jugador. Únicamente expone valores.
+/// </summary>
 [Serializable]
 public class PlayerStats
 {

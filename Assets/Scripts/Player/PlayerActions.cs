@@ -2,6 +2,9 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Provee métodos representativos de las acciones del jugador. Sintetiza física, manejo de estados y estadísticas para que otras clases puedan invocar acciones del jugador sin preocuparse por los detalles de implementación.
+/// </summary>
 public class PlayerActions
 {
     PlayerContext context;
