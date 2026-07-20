@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     PlayerState NegateMovementStates = PlayerState.Stunned | PlayerState.Dashing;
     bool CanMove => !context.HasAnyState(NegateMovementStates);
 
+    LayerMask dashLayerMask;
+
     void Awake()
     {
         inputHandler = GetComponent<PlayerInputHandler>();
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         resources.Initialize();
+        dashLayerMask = LayerMask.GetMask("Wall", "Obstacle");
     }
 
     void FixedUpdate()
@@ -65,7 +68,10 @@ public class PlayerController : MonoBehaviour
     void Dash()
     {
         if (!CanMove) return;
-        if (resources.TryConsumeStamina(stats.DashStaminaCost))
-            StartCoroutine(actions.Dash(inputHandler.MoveDir));
+        if (!resources.TryConsumeStamina(stats.DashStaminaCost)) return;
+        
+        RaycastHit2D hit = Physics2D.Raycast(body.position, inputHandler.LastMoveInput, stats.DashDistance, dashLayerMask);
+        if (hit) StartCoroutine(actions.Dash(inputHandler.LastMoveInput, hit));
+        else StartCoroutine(actions.Dash(inputHandler.LastMoveInput));
     }
 }

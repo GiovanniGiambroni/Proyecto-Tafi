@@ -478,7 +478,7 @@ MonoBehaviour:
     Acceleration: 18
     Deceleration: 30
     DashDistance: 3
-    DashDuration: 0.2
+    DashDuration: 0.1
     DashStaminaCost: 10
     MaxHealth: 3
     MaxEnergy: 60
@@ -688,7 +688,7 @@ GameObject:
   - component: {fileID: 807356906}
   - component: {fileID: 807356905}
   - component: {fileID: 807356907}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -982,7 +982,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1701766717
 BoxCollider2D:
   m_ObjectHideFlags: 0

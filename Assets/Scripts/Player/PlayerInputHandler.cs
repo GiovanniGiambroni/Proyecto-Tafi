@@ -13,6 +13,7 @@ public class PlayerInputHandler : MonoBehaviour
     InputAction dashAction;
 
     public Vector2 MoveDir { get; private set; } = new();
+    public Vector2 LastMoveInput { get; private set; } = new();
     public Action DashEvent { get; set; }
 
     void Awake()
@@ -33,6 +34,10 @@ public class PlayerInputHandler : MonoBehaviour
     void Update()
     {
         MoveDir = moveAction.ReadValue<Vector2>();
+        if (MoveDir != Vector2.zero)
+        {
+            LastMoveInput = MoveDir;
+        }
     }
 
     void OnDestroy()
