@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     PlayerState NegateMovementStates = PlayerState.Stunned | PlayerState.Dashing;
     bool CanMove => !context.HasAnyState(NegateMovementStates);
 
-    LayerMask dashLayerMask;
+    LayerMask wallLayerMask;
 
     void Awake()
     {
@@ -38,12 +38,14 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         resources.Initialize();
-        dashLayerMask = LayerMask.GetMask("Wall", "Obstacle");
+        ui.StartSpeedOMeter(stats.MoveSpeed);
+        wallLayerMask = LayerMask.GetMask("Wall", "Obstacle");
     }
 
     void FixedUpdate()
     {
         if (CanMove) actions.Move(inputHandler.MoveDir);
+        ui.UpdateSpeedOMeter(body.linearVelocity.magnitude);
         resources.Update(false, true);
     }
 
@@ -55,6 +57,14 @@ public class PlayerController : MonoBehaviour
     void OnDisable()
     {
         UnsubscribeActions();
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.relativeVelocity.magnitude >= (stats.MoveSpeed * stats.BumpThreshold))
+        {
+            actions.Bump(inputHandler.LastMoveInput, col.GetContact(0).normal, col.relativeVelocity.magnitude);
+        }
     }
 
     void SubscribeActions()
@@ -72,7 +82,7 @@ public class PlayerController : MonoBehaviour
         if (!CanMove) return;
         if (!resources.TryConsumeStamina(stats.DashStaminaCost)) return;
         
-        RaycastHit2D hit = Physics2D.Raycast(body.position, inputHandler.LastMoveInput, stats.DashDistance, dashLayerMask);
+        RaycastHit2D hit = Physics2D.Raycast(body.position, inputHandler.LastMoveInput, stats.DashDistance, wallLayerMask);
         if (hit) StartCoroutine(actions.Dash(inputHandler.LastMoveInput, hit));
         else StartCoroutine(actions.Dash(inputHandler.LastMoveInput));
     }

@@ -11,14 +11,30 @@ public class PlayerUI : MonoBehaviour
 {
     public Slider stamSlider;
 
-    public void UpdateStamina(float stamina)
-    {
-        stamSlider.value = stamina;
-    }
+    public Slider speedOMeter;
+    public Text speedOMeterText;
 
     public void StartStaminaSlider(float maxStamina)
     {
         stamSlider.maxValue = maxStamina;
         stamSlider.value = maxStamina;
+    }
+
+    public void UpdateStamina(float stamina)
+    {
+        stamSlider.value = stamina;
+    }
+
+    public void StartSpeedOMeter(float maxSpeed)
+    {
+        speedOMeter.maxValue = maxSpeed;
+        speedOMeter.value = 0;
+        speedOMeterText.text = $"Speed: 0";
+    }
+
+    public void UpdateSpeedOMeter(float speed)
+    {
+        speedOMeter.value = speed;
+        speedOMeterText.text = $"Speed: {speed.ToString("0.00")}";
     }
 }

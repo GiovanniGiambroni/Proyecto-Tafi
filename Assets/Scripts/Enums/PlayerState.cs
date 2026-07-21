@@ -8,5 +8,5 @@ public enum PlayerState
     Dashing = 1 << 1,
     Casting = 1 << 2,
     Invulnerable = 1 << 3,
-    Stunned = 1 << 4
+    Stunned = 1 << 4,
 }

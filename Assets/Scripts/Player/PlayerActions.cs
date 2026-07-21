@@ -98,12 +98,17 @@ public class PlayerActions
                 elapsed += Time.deltaTime;
                 yield return null;
             }
-
-            rb.linearVelocity = bumpDir * stats.MoveSpeed;
+            Bump(dashDir, col.normal, stats.MoveSpeed);
         }
         finally
         {
             context.RemoveState(PlayerState.Dashing);
         }
+    }
+
+    public void Bump(Vector2 dir, Vector2 normal, float strength)
+    {
+        Vector2 bumpDir = Vector2.Reflect(dir.normalized, normal);
+        rb.linearVelocity = bumpDir * strength * (1- stats.BumpDecay);
     }
 }

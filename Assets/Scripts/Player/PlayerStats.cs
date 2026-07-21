@@ -11,6 +11,8 @@ public class PlayerStats
     public float MoveSpeed = 10;
     public float Acceleration = 18;
     public float Deceleration = 30;
+    public float BumpThreshold = 0.25f;
+    public float BumpDecay = 0.2f;
 
     [Header("Dash")]
     public float DashDistance = 3;
