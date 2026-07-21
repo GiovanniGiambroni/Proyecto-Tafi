@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlayerStats stats = new();
     PlayerResources resources;
     Rigidbody2D body;
+    Collider2D col;
     PlayerInputHandler inputHandler;
     PlayerUI ui;
     PlayerActions actions;
@@ -26,9 +27,10 @@ public class PlayerController : MonoBehaviour
     {
         inputHandler = GetComponent<PlayerInputHandler>();
         body = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
         ui = GetComponent<PlayerUI>();
 
-        context = new(body, stats, inputHandler, resources, ui, state);
+        context = new(body, col, stats, inputHandler, resources, ui, state);
         actions = new(context);
         resources = new(context);
     }

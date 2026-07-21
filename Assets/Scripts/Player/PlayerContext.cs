@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerContext
 {
     public Rigidbody2D Body {  get; private set; }
+    public Collider2D Collider { get; private set; }
     public PlayerStats Stats { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
     public PlayerResources Resources { get; private set; }
@@ -15,6 +16,7 @@ public class PlayerContext
     public PlayerContext
         (
         Rigidbody2D body,
+        Collider2D collider,
         PlayerStats stats,
         PlayerInputHandler inputHandler,
         PlayerResources resources,
@@ -23,6 +25,7 @@ public class PlayerContext
         )
     {
         Body = body;
+        Collider = collider;
         Stats = stats;
         InputHandler = inputHandler;
         Resources = resources;
