@@ -84,13 +84,16 @@ public class PlayerActions
             float dashSpeed = stats.DashDistance / stats.DashDuration;
             Vector2 bumpDir = Vector2.Reflect(dashDir, col.normal);
 
+            // Ajuste para evitar que el jugador se quede pegado a la pared
+            Vector2 targetPos = col.point - dashDir * 0.1f;
+
             // Reseteo velocidad para evitar que se desvíe de la trayectoria del dash
             rb.linearVelocity = Vector2.zero;
 
             float elapsed = 0;
             while (elapsed < stats.DashDuration)
             {
-                rb.position = Vector2.MoveTowards(rb.position, col.point, dashSpeed * Time.deltaTime);
+                rb.position = Vector2.MoveTowards(rb.position, targetPos, dashSpeed * Time.deltaTime);
 
                 elapsed += Time.deltaTime;
                 yield return null;
