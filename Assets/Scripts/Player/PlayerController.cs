@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
-    PlayerContext context;
+    public PlayerContext Context { get; private set; }
 
     [SerializeField] PlayerStats stats = new();
     PlayerResources resources;
@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     PlayerState state = PlayerState.None;
 
     PlayerState NegateMovementStates = PlayerState.Stunned | PlayerState.Dashing;
-    bool CanMove => !context.HasAnyState(NegateMovementStates);
+    bool CanMove => !Context.HasAnyState(NegateMovementStates);
 
     LayerMask wallLayerMask;
 
@@ -30,9 +30,9 @@ public class PlayerController : MonoBehaviour
         col = GetComponent<Collider2D>();
         ui = GetComponent<PlayerUI>();
 
-        context = new(body, col, stats, inputHandler, resources, ui, state);
-        actions = new(context);
-        resources = new(context);
+        Context = new(body, col, stats, inputHandler, resources, ui, state);
+        actions = new(Context);
+        resources = new(Context);
     }
 
     void Start()

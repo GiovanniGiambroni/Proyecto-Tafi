@@ -5,7 +5,7 @@ public class ZoneTrigger : MonoBehaviour
     public EnemyZone EnemyZone;
     Collider2D trigger;
 
-    private void Awake()
+    void Awake()
     {
         trigger = GetComponent<Collider2D>();
 
@@ -20,8 +20,13 @@ public class ZoneTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            EnemyZone.BeginZone();
+            EnemyZone.BeginZone(collision.gameObject);
             trigger.enabled = false;
         }
+    }
+
+    public void ResetTrigger()
+    {
+        trigger.enabled = true;
     }
 }
