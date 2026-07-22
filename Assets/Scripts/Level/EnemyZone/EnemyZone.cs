@@ -29,8 +29,8 @@ public class EnemyZone : MonoBehaviour
         }
 
         SetDoors(false);
-
-        EnemyWaves[0].Activate(this.player);
+        if (EnemyWaves.Count == 0) Debug.LogError("No EnemyWaves found in EnemyZone");
+        else EnemyWaves[0].Activate(this.player);
     }
 
     public void OnWaveCompleted()
