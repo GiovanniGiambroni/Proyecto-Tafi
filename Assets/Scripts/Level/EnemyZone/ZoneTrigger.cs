@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Logica de activación de la zona de enemigos.
+/// </summary>
 public class ZoneTrigger : MonoBehaviour
 {
     public EnemyZone EnemyZone;
@@ -16,6 +19,7 @@ public class ZoneTrigger : MonoBehaviour
         }
     }
 
+    // Cuando el jugador entra en el trigger, se inicia la zona de enemigos y se desactiva el trigger para evitar múltiples activaciones.
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

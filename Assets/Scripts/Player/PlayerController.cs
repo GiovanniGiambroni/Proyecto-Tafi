@@ -37,9 +37,18 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        resources.Initialize();
         ui.StartSpeedOMeter(stats.MoveSpeed);
         wallLayerMask = LayerMask.GetMask("Wall", "Obstacle");
+    }
+
+    /// <summary>
+    /// Función usada por el PlayerSpawnZone para iniciar o reiniciar el estado y posición del jugador.
+    /// </summary>
+    public void StartResetPlayer()
+    {
+        Context.SetState(PlayerState.None);
+        resources.Initialize();
+        body.linearVelocity = Vector2.zero;
     }
 
     void FixedUpdate()

@@ -33,6 +33,11 @@ public class PlayerContext
         State = state;
     }
 
+    public void SetState(PlayerState s)
+    {
+        State = s;
+    }
+
     public void AddState(PlayerState s)
     {
         State |= s;

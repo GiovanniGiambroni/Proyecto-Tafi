@@ -3,6 +3,9 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Representa una oleada de enemigos dentro de una zona de enemigos.
+/// </summary>
 public class EnemyWave : MonoBehaviour
 {
     List<EnemyController> enemies = new List<EnemyController>();

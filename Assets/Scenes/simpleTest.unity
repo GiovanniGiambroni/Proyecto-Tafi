@@ -119,6 +119,55 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &85295194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 85295195}
+  - component: {fileID: 85295196}
+  m_Layer: 0
+  m_Name: LevelController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &85295195
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85295194}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.53846, y: -13.6188, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &85295196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85295194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ac521b138fd057478378abb4de8b2bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelController
+  PlayerSpawnZone: {fileID: 2094784911}
+  EnemyZones:
+  - {fileID: 997668642}
+  BossZones: []
+  WinZone: {fileID: 0}
 --- !u!1 &116695989
 GameObject:
   m_ObjectHideFlags: 0
@@ -14988,6 +15037,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 559543326}
+  - component: {fileID: 559543327}
   m_Layer: 0
   m_Name: EnemyWave
   m_TagString: Untagged
@@ -15003,14 +15053,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 559543325}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -23.45617, y: 63.80137, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1081560539}
   m_Father: {fileID: 997668641}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &559543327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559543325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 174995ab818cf844fac8db34b3ebeb7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyWave
 --- !u!1 &596320940
 GameObject:
   m_ObjectHideFlags: 0
@@ -21138,7 +21200,7 @@ GameObject:
   - component: {fileID: 714082862}
   - component: {fileID: 714082861}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: PlayerHUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21221,7 +21283,7 @@ RectTransform:
   m_Children:
   - {fileID: 2037185490}
   - {fileID: 1445572075}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 794962447}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -21387,10 +21449,11 @@ Transform:
   m_GameObject: {fileID: 794962441}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.55, y: 0, z: 0}
+  m_LocalPosition: {x: 16.1, y: -10.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 714082864}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &794962449
@@ -21480,7 +21543,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 937096519}
-  - component: {fileID: 937096520}
+  - component: {fileID: 937096522}
+  - component: {fileID: 937096521}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -21497,13 +21561,26 @@ Transform:
   m_GameObject: {fileID: 937096518}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31.4, y: -56.3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 997668641}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &937096520
+--- !u!114 &937096521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937096518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc52ffedf9531c41af373da5f05aa5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZoneTrigger
+  EnemyZone: {fileID: 997668642}
+--- !u!61 &937096522
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -21537,7 +21614,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.28695583, y: -0.37304306}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -21547,7 +21624,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 16.368696, y: 16.383026}
   m_EdgeRadius: 0
 --- !u!1 &961828167
 GameObject:
@@ -21560,8 +21637,9 @@ GameObject:
   - component: {fileID: 961828168}
   - component: {fileID: 961828170}
   - component: {fileID: 961828169}
+  - component: {fileID: 961828171}
   m_Layer: 7
-  m_Name: Door_00
+  m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21576,7 +21654,7 @@ Transform:
   m_GameObject: {fileID: 961828167}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 33, y: -56.3, z: 0}
+  m_LocalPosition: {x: 9.543831, y: 7.5013695, z: 0}
   m_LocalScale: {x: 0.3, y: 1.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21678,6 +21756,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &961828171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961828167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd5cf4b59284b94bb3923d0a440dbda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorController
+  StartOpen: 1
 --- !u!1 &997668640
 GameObject:
   m_ObjectHideFlags: 0
@@ -21687,6 +21778,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 997668641}
+  - component: {fileID: 997668642}
   m_Layer: 0
   m_Name: Enemy Zone
   m_TagString: Untagged
@@ -21703,7 +21795,7 @@ Transform:
   m_GameObject: {fileID: 997668640}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.95617, y: 42.30137, z: 0}
+  m_LocalPosition: {x: 5.5, y: -21.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21712,6 +21804,22 @@ Transform:
   - {fileID: 559543326}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &997668642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997668640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0140dbdaa3692fa4086ec5a80fa02dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyZone
+  Doors:
+  - {fileID: 961828171}
+  Trigger: {fileID: 937096521}
+  EnemyWaves: []
 --- !u!1 &1007471211
 GameObject:
   m_ObjectHideFlags: 0
@@ -21872,6 +21980,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1081560539}
   - component: {fileID: 1081560540}
+  - component: {fileID: 1081560541}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -21953,6 +22062,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1081560541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081560538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5530f28af1c86b41aa31a8a90dca142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
 --- !u!1 &1445572074
 GameObject:
   m_ObjectHideFlags: 0
@@ -22362,13 +22483,60 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &2094784910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2094784912}
+  - component: {fileID: 2094784911}
+  m_Layer: 0
+  m_Name: PlayerSpawnZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2094784911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094784910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac51a30b16e6afd43bda4afbbaac6d1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawnZone
+  player: {fileID: 794962441}
+  checkPoints: []
+--- !u!4 &2094784912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094784910}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1830909162}
+  - {fileID: 129516475}
+  - {fileID: 85295195}
   - {fileID: 176805583}
   - {fileID: 794962447}
-  - {fileID: 714082864}
-  - {fileID: 129516475}
+  - {fileID: 2094784912}
   - {fileID: 997668641}
