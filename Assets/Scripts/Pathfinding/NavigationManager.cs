@@ -1,4 +1,3 @@
-using NUnit.Framework.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -8,8 +7,8 @@ public class NavigationManager : MonoBehaviour
     public static NavigationManager Instance { get; private set; }
 
     public Tilemap walkable; // Tilemap que representa las áreas transitables
-    public GameObject NodePrefab;
     public List<Node> nodes = new List<Node>(); // Lista de nodos en la cuadrícula
+    public Dictionary<Vector3Int, Node> nodeMap = new Dictionary<Vector3Int, Node>(); // Diccionario para acceder a los nodos por su posición
 
     void Awake()
     {
@@ -29,9 +28,9 @@ public class NavigationManager : MonoBehaviour
             if (walkable.HasTile(pos))
             {
                 Vector2 worldPos = walkable.CellToWorld(pos) + walkable.tileAnchor;
-                Node node = Instantiate(NodePrefab, transform).GetComponent<Node>();
-                node.transform.position = worldPos;
+                Node node = new(worldPos, pos);
                 nodes.Add(node);
+                nodeMap.Add(pos, node);
             }
         }
     }
@@ -42,7 +41,7 @@ public class NavigationManager : MonoBehaviour
         {
             for (int j = i + 1; j < nodes.Count; j++)
             {
-                if (Vector2.Distance(nodes[i].transform.position, nodes[j].transform.position) < 1.5f)
+                if (Vector2.Distance(nodes[i].worldPosition, nodes[j].worldPosition) < 1.5f)
                 {
                     ConnectNodes(nodes[i], nodes[j]);
                     ConnectNodes(nodes[j], nodes[i]);
@@ -54,22 +53,23 @@ public class NavigationManager : MonoBehaviour
     void ConnectNodes(Node from, Node to)
     {
         if (from == to) return;
-        from.neighbors.Add(to);
+        from.neighbours.Add(to);
     }
 
-    public List<Node> GeneratePath(Node start, Node goal)
+    public List<Vector2> GeneratePath(Node start, Node goal)
     {
         List<Node> openSet = new List<Node> { start };
 
         foreach (Node node in nodes)
         {
             node.gScore = float.MaxValue;
+            node.hScore = 0;
+            node.cameFrom = null;
         }
 
         // Inicializa los puntajes del nodo inicial
         start.gScore = 0;
-        start.hScore = Vector2.Distance(start.transform.position, goal.transform.position);
-        openSet.Add(start);
+        start.hScore = Vector2.Distance(start.worldPosition, goal.worldPosition);
 
         while (openSet.Count > 0)
         {
@@ -90,10 +90,10 @@ public class NavigationManager : MonoBehaviour
             // Si llega al nodo objetivo, reconstruye el camino y termina temprano
             if (current == goal)
             {
-                List<Node> path = new List<Node>();
+                List<Vector2> path = new List<Vector2>();
                 while (current != null)
                 {
-                    path.Add(current);
+                    path.Add(current.worldPosition);
                     current = current.cameFrom;
                 }
                 path.Reverse();
@@ -101,15 +101,15 @@ public class NavigationManager : MonoBehaviour
             }
 
             // Busca en los vecinos y actualiza el openSet
-            foreach (Node neighbor in current.neighbors)
+            foreach (Node neighbor in current.neighbours)
             {
-                float heldGScore = current.gScore + Vector2.Distance(current.transform.position, neighbor.transform.position);
+                float heldGScore = current.gScore + Vector2.Distance(current.worldPosition, neighbor.worldPosition);
 
                 if (heldGScore < neighbor.gScore)
                 {
                     neighbor.cameFrom = current;
                     neighbor.gScore = heldGScore;
-                    neighbor.hScore = Vector2.Distance(neighbor.transform.position, goal.transform.position);
+                    neighbor.hScore = Vector2.Distance(neighbor.worldPosition, goal.worldPosition);
 
                     if (!openSet.Contains(neighbor))
                     {
@@ -120,5 +120,13 @@ public class NavigationManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public Node GetNodeAt(Vector3 worldPos)
+    {
+        Vector3Int cell = walkable.WorldToCell(worldPos);
+        nodeMap.TryGetValue(cell, out Node node);
+        if (node == null) Debug.LogError($"Failed to get node at: {worldPos.ToString()}");
+        return node;
     }
 }
